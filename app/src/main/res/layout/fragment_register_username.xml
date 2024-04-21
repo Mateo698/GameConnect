@@ -41,6 +41,7 @@
         android:ems="10"
         android:hint="Username"
         android:inputType="text"
+        android:textColor="#F6F6F6"
         android:textColorHint="#73758D"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

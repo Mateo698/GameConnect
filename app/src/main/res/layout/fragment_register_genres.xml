@@ -31,7 +31,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/shooterCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -42,18 +42,18 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <CheckBox
-        android:id="@+id/checkBox2"
+        android:id="@+id/sportsCheckBox2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="Sports"
         android:textColor="#73758D"
-        app:layout_constraintBottom_toBottomOf="@+id/checkBox"
-        app:layout_constraintStart_toEndOf="@+id/checkBox"
-        app:layout_constraintTop_toTopOf="@+id/checkBox" />
+        app:layout_constraintBottom_toBottomOf="@+id/shooterCheckBox"
+        app:layout_constraintStart_toEndOf="@+id/shooterCheckBox"
+        app:layout_constraintTop_toTopOf="@+id/shooterCheckBox" />
 
     <CheckBox
-        android:id="@+id/checkBox3"
+        android:id="@+id/mobaCheckBox3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -63,20 +63,20 @@
         android:textColor="#73758D"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox5" />
+        app:layout_constraintTop_toBottomOf="@+id/survivalCheckBox5" />
 
     <CheckBox
-        android:id="@+id/checkBox4"
+        android:id="@+id/fightCheckBox4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="Fighting"
         android:textColor="#73758D"
-        app:layout_constraintStart_toEndOf="@+id/checkBox7"
-        app:layout_constraintTop_toTopOf="@+id/checkBox7" />
+        app:layout_constraintStart_toEndOf="@+id/raceCheckBox7"
+        app:layout_constraintTop_toTopOf="@+id/raceCheckBox7" />
 
     <CheckBox
-        android:id="@+id/checkBox5"
+        android:id="@+id/survivalCheckBox5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -84,28 +84,28 @@
         android:text="Survival"
         android:textColor="#73758D"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+        app:layout_constraintTop_toBottomOf="@+id/shooterCheckBox" />
 
     <CheckBox
-        android:id="@+id/checkBox6"
+        android:id="@+id/rpgCheckBox6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="RPG"
         android:textColor="#73758D"
-        app:layout_constraintBottom_toBottomOf="@+id/checkBox2"
-        app:layout_constraintStart_toEndOf="@+id/checkBox2"
-        app:layout_constraintTop_toTopOf="@+id/checkBox2" />
+        app:layout_constraintBottom_toBottomOf="@+id/sportsCheckBox2"
+        app:layout_constraintStart_toEndOf="@+id/sportsCheckBox2"
+        app:layout_constraintTop_toTopOf="@+id/sportsCheckBox2" />
 
     <CheckBox
-        android:id="@+id/checkBox7"
+        android:id="@+id/raceCheckBox7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="Racing"
         android:textColor="#73758D"
-        app:layout_constraintBottom_toBottomOf="@+id/checkBox5"
-        app:layout_constraintStart_toEndOf="@+id/checkBox5"
-        app:layout_constraintTop_toTopOf="@+id/checkBox5" />
+        app:layout_constraintBottom_toBottomOf="@+id/survivalCheckBox5"
+        app:layout_constraintStart_toEndOf="@+id/survivalCheckBox5"
+        app:layout_constraintTop_toTopOf="@+id/survivalCheckBox5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
