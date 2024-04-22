@@ -15,6 +15,9 @@ class GamesFragment: Fragment() {
             savedInstanceState: Bundle?
         ): View {
             val binding = FragmentRegisterGamesBinding.inflate(inflater, container, false)
+
+            
+
             return binding.root
         }
 
