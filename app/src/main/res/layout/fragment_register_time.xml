@@ -11,6 +11,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="60dp"
         android:text="Availability time"
+        android:textColor="#FFFFFF"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -18,17 +19,19 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginStart="16dp"
-        android:text="At what time do you usually play?" />
+        android:layout_marginTop="8dp"
+        android:text="At what time do you usually play?"
+        android:textColor="#73758D" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
         android:layout_marginStart="16dp"
-        android:text="Select which days you play:" />
+        android:layout_marginTop="60dp"
+        android:text="Select which days you play:"
+        android:textColor="#73758D" />
 
     <GridLayout
         android:layout_width="match_parent"
@@ -45,44 +48,49 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mon"
-            />
+            android:textColor="#73758D" />
 
         <CheckBox
             android:id="@+id/checkbox_tuesday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tue"
-            />
+            android:textColor="#73758D" />
 
         <CheckBox
             android:id="@+id/checkbox_wednesday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Wed" />
+            android:text="Wed"
+            android:textColor="#73758D" />
 
         <CheckBox
             android:id="@+id/checkbox_thursday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thu" />
+            android:text="Thu"
+            android:textColor="#73758D" />
 
         <CheckBox
             android:id="@+id/checkbox_friday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Fri" />
+            android:text="Fri"
+            android:textColor="#73758D" />
 
         <CheckBox
             android:id="@+id/checkbox_saturday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sat" />
+            android:text="Sat"
+            android:textColor="#73758D" />
 
         <CheckBox
             android:id="@+id/checkbox_sunday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sun" />
+            android:text="Sun"
+            android:textColor="#73758D" />
 
     </GridLayout>
 
@@ -92,7 +100,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="30dp"
-        android:text="Choose an hour where you play the most:" />
+        android:text="Choose an hour where you play the most:"
+        android:textColor="#73758D" />
 
     <GridLayout
         android:layout_width="match_parent"
@@ -113,16 +122,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="Hour"
-                />
+                android:textColor="#73758D" />
 
             <EditText
                 android:id="@+id/minuteET"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:layout_marginLeft="30dp"
+                android:layout_marginTop="5dp"
                 android:text="Minutes"
-                />
+                android:textColor="#73758D" />
 
             <CheckBox
                 android:id="@+id/checkbox_am"
@@ -130,14 +139,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:text="Am"
-                />
+                android:textColor="#73758D" />
+
             <CheckBox
                 android:id="@+id/checkbox_pm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:text="Pm"
-                />
+                android:textColor="#73758D" />
 
         </GridLayout>
 

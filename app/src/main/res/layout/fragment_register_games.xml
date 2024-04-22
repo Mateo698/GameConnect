@@ -13,6 +13,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="60dp"
         android:text="Which games?"
+        android:textColor="#FFFFFF"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -20,9 +21,10 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginStart="16dp"
-        android:text="Show us your 3 favorites" />
+        android:layout_marginTop="8dp"
+        android:text="Show us your 3 favorites"
+        android:textColor="#73758D" />
 
     <SearchView
         android:layout_width="match_parent"

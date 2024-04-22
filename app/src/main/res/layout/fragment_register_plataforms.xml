@@ -12,6 +12,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="60dp"
         android:text="What about plataforms?"
+        android:textColor="#FFFFFF"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -19,10 +20,11 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="120dp"
-        android:text="Show us your favorites, select the platforms where you play" />
+        android:text="Show us your favorites, select the platforms where you play"
+        android:textColor="#73758D" />
 
     <CheckBox
         android:id="@+id/checkboxPS"
@@ -31,38 +33,42 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="20dp"
         android:text="Playstation"
+        android:textColor="#73758D"
         tools:ignore="InvalidId" />
+
     <CheckBox
         android:id="@+id/checkboxXbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="20dp"
         android:text="Xbox"
-        />
+        android:textColor="#73758D" />
+
     <CheckBox
         android:id="@+id/checkboxPC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="20dp"
         android:text="PC"
-        />
+        android:textColor="#73758D" />
+
     <CheckBox
         android:id="@+id/checkboxSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="20dp"
         android:text="Switch"
-        />
+        android:textColor="#73758D" />
 
     <CheckBox
         android:id="@+id/checkboxMobile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="20dp"
         android:text="Mobile"
-        />
+        android:textColor="#73758D" />
 </LinearLayout>
