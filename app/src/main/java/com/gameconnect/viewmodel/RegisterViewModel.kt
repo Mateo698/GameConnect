@@ -29,6 +29,17 @@ class RegisterViewModel : ViewModel() {
             genres.add(genre)
         }
     }
+    fun addPlatform(platform: String) {
+        val platforms = user.value?.platforms!!.toMutableList()
+
+        if (platforms.contains(platform)) {
+            platforms.remove(platform)
+        } else {
+            platforms.add(platform)
+        }
+
+        user.value = user.value?.copy(platforms = platforms)
+    }
 
     fun setPlatforms(platforms: List<String>){
         user.value = user.value?.copy(platforms = platforms)
