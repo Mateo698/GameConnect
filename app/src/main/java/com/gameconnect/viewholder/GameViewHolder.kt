@@ -10,4 +10,5 @@ class GameViewHolder(root:View): ViewHolder(root) {
     val title = binding.titleTV
     val thumbnail = binding.imageView3
     val genre = binding.genreTV
+    val background = binding.root
 }

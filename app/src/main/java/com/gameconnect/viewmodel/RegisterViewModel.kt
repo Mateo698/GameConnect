@@ -17,7 +17,9 @@ class RegisterViewModel(
 ) : ViewModel() {
     val page:MutableLiveData<Int> = MutableLiveData<Int>(0)
     val user:MutableLiveData<User> = MutableLiveData<User>(User("", listOf(), listOf(), listOf(), listOf(), "", "", ""))
-    val games:MutableLiveData<List<Game>> = MutableLiveData<List<Game>>(listOf())
+    var gamesEmp = listOf<Game>()
+    val games:MutableLiveData<List<Game>> = MutableLiveData<List<Game>>(gamesEmp)
+    val selectedGames:MutableLiveData<List<Game>> = MutableLiveData<List<Game>>(listOf())
 
     fun nextPage(){
         page.value = page.value?.plus(1)
@@ -56,10 +58,11 @@ class RegisterViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             val gamesFetched = gameRepository.getGamesByTitle(title)
             games?.let {
-                withContext(Dispatchers.Main){
+                withContext(Dispatchers.Main) {
                     games.value = gamesFetched
                 }
             }
+
         }
     }
 
@@ -85,6 +88,24 @@ class RegisterViewModel(
 
     fun setTime(time: String){
         user.value = user.value?.copy(time = time)
+    }
+
+    fun getAllGames() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val gamesFetched = gameRepository.getAllGames()
+            games.let {
+                withContext(Dispatchers.Main) {
+                    games.value = gamesFetched
+                }
+            }
+        }
+    }
+
+    fun addGame(game: Game) {
+        val games = user.value?.games!!.toMutableList()
+        selectedGames.value = selectedGames.value?.plus(game)
+        games.add(game.id)
+
     }
 
 }
