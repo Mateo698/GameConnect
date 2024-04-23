@@ -11,9 +11,13 @@ import com.gameconnect.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
 
+
+
     private val binding by lazy {
         ActivityLoginBinding.inflate(layoutInflater)
     }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,5 +29,14 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(it)
             }
         }
+
+        binding.loginBtn.setOnClickListener {
+            viewModel.login(
+                binding.emailET.text.toString(),
+                binding.passET.text.toString(),
+            )
+        }
+
     }
+
 }
