@@ -2,11 +2,24 @@ package com.gameconnect.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.gameconnect.model.Game
 import com.gameconnect.model.User
+import com.gameconnect.repository.GameRepository
+import com.gameconnect.repository.GameRepositoryImpl
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.Dispatcher
 
-class RegisterViewModel : ViewModel() {
+class RegisterViewModel(
+    val gameRepository: GameRepository = GameRepositoryImpl(),
+) : ViewModel() {
     val page:MutableLiveData<Int> = MutableLiveData<Int>(0)
     val user:MutableLiveData<User> = MutableLiveData<User>(User("", listOf(), listOf(), listOf(), listOf(), "", "", ""))
+    var gamesEmp = listOf<Game>()
+    val games:MutableLiveData<List<Game>> = MutableLiveData<List<Game>>(gamesEmp)
+    val selectedGames:MutableLiveData<List<Game>> = MutableLiveData<List<Game>>(listOf())
 
     fun nextPage(){
         page.value = page.value?.plus(1)
@@ -41,6 +54,22 @@ class RegisterViewModel : ViewModel() {
         user.value = user.value?.copy(platforms = platforms)
     }
 
+
+    fun getGamesByTitle(title: String){
+        viewModelScope.launch(Dispatchers.IO) {
+            val gamesFetched = gameRepository.getGamesByTitle(title)
+            games?.let {
+                withContext(Dispatchers.Main) {
+                    games.value = gamesFetched
+                }
+            }
+
+        }
+    }
+
+    fun setPlatforms(platforms: List<String>){
+        user.value = user.value?.copy(platforms = platforms)
+
     fun setBiography(biography: String) {
        //user.value = user.value?.copy(biography = biography)
     }
@@ -69,6 +98,24 @@ class RegisterViewModel : ViewModel() {
 
     fun setTime(time: String){
         user.value = user.value?.copy(time = time)
+    }
+
+    fun getAllGames() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val gamesFetched = gameRepository.getAllGames()
+            games.let {
+                withContext(Dispatchers.Main) {
+                    games.value = gamesFetched
+                }
+            }
+        }
+    }
+
+    fun addGame(game: Game) {
+        val games = user.value?.games!!.toMutableList()
+        selectedGames.value = selectedGames.value?.plus(game)
+        games.add(game.id)
+
     }
 
 }
