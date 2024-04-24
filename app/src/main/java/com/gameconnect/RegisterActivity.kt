@@ -9,6 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.gameconnect.databinding.ActivityRegisterBinding
 import com.gameconnect.registerFragments.BioFragment
+import com.gameconnect.registerFragments.CredentialsFragment
 import com.gameconnect.registerFragments.GamesFragment
 import com.gameconnect.registerFragments.GenreFragment
 import com.gameconnect.registerFragments.PlatformsFragment
@@ -31,7 +32,8 @@ class RegisterActivity : AppCompatActivity() {
         PlatformsFragment.newInstance(),
         BioFragment.newInstance(),
         TimeFragment.newInstance(),
-        TagsFragment.newInstance()
+        TagsFragment.newInstance(),
+        CredentialsFragment.newInstance()
     )
 
 

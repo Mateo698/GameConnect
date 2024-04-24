@@ -54,6 +54,7 @@ class RegisterViewModel(
         user.value = user.value?.copy(platforms = platforms)
     }
 
+
     fun getGamesByTitle(title: String){
         viewModelScope.launch(Dispatchers.IO) {
             val gamesFetched = gameRepository.getGamesByTitle(title)
@@ -68,6 +69,15 @@ class RegisterViewModel(
 
     fun setPlatforms(platforms: List<String>){
         user.value = user.value?.copy(platforms = platforms)
+
+    fun setBiography(biography: String) {
+       //user.value = user.value?.copy(biography = biography)
+    }
+
+    fun addTags(gamertag: String) {
+        val gamertags = user.value?.gamertags!!.toMutableList()
+        gamertags.add(gamertag)
+        user.value = user.value?.copy(gamertags = gamertags)
     }
 
     fun setGames(games: List<String>){
