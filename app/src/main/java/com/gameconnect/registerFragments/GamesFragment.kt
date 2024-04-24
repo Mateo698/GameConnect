@@ -39,6 +39,9 @@ class GamesFragment: Fragment() {
             viewModel.selectedGames.observe(viewLifecycleOwner){
 
                 adapter.games = it as? ArrayList<Game> ?: arrayListOf()
+                if(it.size == 3){
+                    binding.addButton.visibility = View.GONE
+                }
                 adapter.notifyDataSetChanged()
             }
 
@@ -50,7 +53,7 @@ class GamesFragment: Fragment() {
         fun onResult(result: ActivityResult){
             if(result.resultCode == Activity.RESULT_OK){
                 val data = result.data
-                val game = Game("1",data?.getStringExtra("game") ?: "", data?.getStringExtra("genre") ?: "", "", "")
+                val game = Game("1",data?.getStringExtra("game") ?: "", data?.getStringExtra("thumbnail") ?: "", "",data?.getStringExtra("genre") ?: "")
                 viewModel.addGame(game)
             }
         }

@@ -1,6 +1,7 @@
 package com.gameconnect
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -31,14 +32,17 @@ class SelectGameActivity : AppCompatActivity() {
         viewModel.games.observe(this) {
             adapter.games = it as? ArrayList<Game> ?: arrayListOf()
             adapter.activity = this
-
-
             adapter.notifyDataSetChanged()
         }
 
         binding.searchButton.setOnClickListener {
             var title = binding.searchBar.text.toString()
-            viewModel.getAllGames()
+            if(title.isEmpty()){
+                Toast.makeText(this, "Please enter a title", Toast.LENGTH_SHORT).show()
+            }else{
+                viewModel.getGamesByTitle(title)
+            }
+            //viewModel.getAllGames()
         }
 
 
