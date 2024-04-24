@@ -1,6 +1,7 @@
 package com.gameconnect.registerFragments
 
 import android.os.Bundle
+import android.text.Editable
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -21,19 +22,11 @@ class TagsFragment: Fragment() {
     ): View {
         val binding = FragmentRegisterGamertagBinding.inflate(inflater, container, false)
 
-        binding.gamertagET.setOnKeyListener { _, keyCode, event ->
-            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                val gamertag = binding.gamertagET.text.toString().trim()
-
-                if (gamertag.isNotEmpty()) {
-                    viewModel.addTags(gamertag)
-                    binding.gamertagET.text.clear()
-                }
-
-                return@setOnKeyListener true
+        binding.gamertagET.addTextChangedListener(object : TextChangedListener<RegisterViewModel>(viewModel){
+            override fun onTextChanged(target: RegisterViewModel, s: Editable){
+                viewModel.setGamertags(listOf(s.toString()))
             }
-            false
-        }
+        })
 
         return binding.root
     }

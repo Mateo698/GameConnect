@@ -1,6 +1,7 @@
 package com.gameconnect.model
 
 data class User(
+    var id: String,
     val username: String,
     val genres: List<String>,
     val platforms: List<String>,
@@ -8,5 +9,6 @@ data class User(
     val gamertags: List<String>,
     val email: String,
     val password: String,
-    val time: String
+    val time: String,
+    val biography: String
 )

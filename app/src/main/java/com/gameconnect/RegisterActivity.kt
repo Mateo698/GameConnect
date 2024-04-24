@@ -1,5 +1,6 @@
 package com.gameconnect
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -8,6 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.gameconnect.databinding.ActivityRegisterBinding
+import com.gameconnect.domain.model.AppAuthState
 import com.gameconnect.registerFragments.BioFragment
 import com.gameconnect.registerFragments.CredentialsFragment
 import com.gameconnect.registerFragments.GamesFragment
@@ -60,11 +62,27 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         binding.nextBtn.setOnClickListener {
-            viewModel.nextPage()
+            viewModel.nextPage(this)
         }
 
         binding.backBtn.setOnClickListener {
             viewModel.previousPage()
+        }
+
+        viewModel.authStatus.observe(this){
+            when(it){
+                is AppAuthState.Success -> {
+                    startActivity(
+                        Intent(this, MainActivity::class.java)
+                    )
+                }
+                is AppAuthState.Error -> {
+                    //Show error
+                }
+                is AppAuthState.Loading -> {
+                    //Show loading
+                }
+            }
         }
 
     }
