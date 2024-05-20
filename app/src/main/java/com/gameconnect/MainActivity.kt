@@ -1,7 +1,9 @@
 package com.gameconnect
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.ContactsContract.Profile
 import androidx.fragment.app.Fragment
 import com.gameconnect.databinding.ActivityMainBinding
 

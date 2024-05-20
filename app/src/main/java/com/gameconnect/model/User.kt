@@ -10,5 +10,6 @@ data class User(
     val email: String,
     val password: String,
     val time: String,
-    val biography: String
+    val biography: String,
+    var profilePic: String? = null
 )
