@@ -14,4 +14,8 @@ class AuthServices {
     suspend fun register(email: String, pass: String) : AuthResult {
         return Firebase.auth.createUserWithEmailAndPassword(email, pass).await()
     }
+
+    fun signout(){
+        Firebase.auth.signOut()
+    }
 }

@@ -1,7 +1,7 @@
 package com.gameconnect.repository
 
 import com.gameconnect.domain.model.AppAuthState
-import com.gameconnect.model.User
+import com.gameconnect.domain.model.User
 import com.gameconnect.services.AuthServices
 import com.gameconnect.services.UserServices
 import com.google.firebase.auth.FirebaseAuthException
@@ -9,6 +9,7 @@ import com.google.firebase.auth.FirebaseAuthException
 interface AuthRepository {
     suspend fun login(email: String, pass: String) : AppAuthState
     suspend fun register(user: User, pass: String) : AppAuthState
+    fun signout()
 }
 
 class AuthRepositoryImpl(
@@ -43,6 +44,10 @@ class AuthRepositoryImpl(
         catch (ex: FirebaseAuthException) {
             return AppAuthState.Error(ex.errorCode)
         }
+    }
+
+    override fun signout() {
+        authServices.signout()
     }
 
 

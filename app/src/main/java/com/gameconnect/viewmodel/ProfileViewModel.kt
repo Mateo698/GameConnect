@@ -5,7 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gameconnect.model.User
+import com.gameconnect.domain.model.User
+import com.gameconnect.repository.AuthRepository
+import com.gameconnect.repository.AuthRepositoryImpl
 import com.gameconnect.repository.UserRepository
 import com.gameconnect.repository.UserRepositoryImpl
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +17,8 @@ import java.util.UUID
 
 class ProfileViewModel (
 
-    val  userRepo: UserRepository = UserRepositoryImpl()
+    val userRepo: UserRepository = UserRepositoryImpl(),
+    val authRepo: AuthRepository = AuthRepositoryImpl()
 
 ) : ViewModel() {
 
@@ -40,5 +43,9 @@ class ProfileViewModel (
             userRepo.updateProfileImage(uri, id)
             loadUser()
         }
+    }
+
+    fun signout(){
+        authRepo.signout()
     }
 }

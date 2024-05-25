@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gameconnect.domain.model.AppAuthState
 import com.gameconnect.model.Game
-import com.gameconnect.model.User
+import com.gameconnect.domain.model.User
 import com.gameconnect.repository.AuthRepository
 import com.gameconnect.repository.AuthRepositoryImpl
 import com.gameconnect.repository.GameRepository
@@ -15,7 +15,6 @@ import com.gameconnect.repository.GameRepositoryImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import okhttp3.Dispatcher
 
 class RegisterViewModel(
     val gameRepository: GameRepository = GameRepositoryImpl(),

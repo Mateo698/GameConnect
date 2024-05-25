@@ -1,6 +1,6 @@
 package com.gameconnect.services
 
-import com.gameconnect.model.User
+import com.gameconnect.domain.model.User
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.DocumentSnapshot

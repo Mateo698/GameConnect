@@ -1,7 +1,7 @@
 package com.gameconnect.repository
 
 import android.net.Uri
-import com.gameconnect.model.User
+import com.gameconnect.domain.model.User
 import com.gameconnect.services.FileServices
 import com.gameconnect.services.UserServices
 import com.google.firebase.Firebase
@@ -17,8 +17,6 @@ class UserRepositoryImpl(
     val userServices: UserServices = UserServices(),
     val fileServices: FileServices = FileServices()
 ) : UserRepository {
-
-
     override suspend fun loadUser(): User? {
         val document = userServices.loadUser(Firebase.auth.uid!!)
         val user = document.toObject(User::class.java)
