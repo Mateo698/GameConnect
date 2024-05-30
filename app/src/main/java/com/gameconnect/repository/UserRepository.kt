@@ -2,6 +2,7 @@ package com.gameconnect.repository
 
 import android.net.Uri
 import com.gameconnect.domain.model.User
+import com.gameconnect.domain.model.UserCard
 import com.gameconnect.services.FileServices
 import com.gameconnect.services.UserServices
 import com.google.firebase.Firebase
@@ -11,6 +12,7 @@ interface UserRepository {
 
     suspend fun loadUser() : User?
     suspend fun updateProfileImage(uri: Uri, filename: String)
+    suspend fun observeAllUsers() : List<UserCard>
 }
 
 class UserRepositoryImpl(
@@ -28,6 +30,11 @@ class UserRepositoryImpl(
     override suspend fun updateProfileImage(uri: Uri, filename: String) {
         fileServices.uploadFile(uri, filename)
         userServices.updateProfileImage(filename)
+    }
+
+    override suspend fun observeAllUsers() : List<UserCard> {
+        val users = userServices.observeAllUsers()
+        return users.filter { it.id != Firebase.auth.uid }
     }
 
 }

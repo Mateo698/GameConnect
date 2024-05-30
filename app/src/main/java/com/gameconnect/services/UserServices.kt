@@ -1,10 +1,13 @@
 package com.gameconnect.services
 
+import android.util.Log
 import com.gameconnect.domain.model.User
+import com.gameconnect.domain.model.UserCard
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.toObject
 import kotlinx.coroutines.tasks.await
 
 class UserServices   {
@@ -18,11 +21,20 @@ class UserServices   {
         return output
     }
 
-    fun observeUser(id: String, callback: (DocumentSnapshot?) -> Unit) {
-        Firebase.firestore.collection("users").document(id).addSnapshotListener { snapshot, error ->
-            callback(snapshot)
+    suspend fun observeAllUsers() : List<UserCard> {
+        val users = mutableListOf<UserCard>()
+        try {
+            val result = Firebase.firestore.collection("users").get().await()
+            for (document in result) {
+                val userCard = document.toObject(UserCard::class.java)
+                users.add(userCard)
+            }
+        } catch (exception: Exception) {
+            Log.w(">>>", "Error getting documents ", exception)
         }
+        return users
     }
+
 
     suspend fun updateProfileImage(filename: String) {
         Firebase.firestore.collection("users").document(
