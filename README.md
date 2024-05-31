@@ -1,0 +1,1 @@
+El uso del storage está en el perfil, cuando se hace click a la imagen, se puede cambiar y así mismo se va a ver reflejada en el view de la imagen, en el storage de firebase, y se guarda el id de la imagen en el usuario activo 

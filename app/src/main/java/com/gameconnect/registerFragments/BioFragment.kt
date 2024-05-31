@@ -1,6 +1,7 @@
 package com.gameconnect.registerFragments
 
 import android.os.Bundle
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,17 +23,11 @@ class BioFragment : Fragment(){
     ): View{
         val binding = FragmentRegisterBioBinding.inflate(inflater, container, false)
 
-        binding.bioET.setOnKeyListener { _, keyCode, event ->
-            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-
-                val biography = binding.bioET.text.toString().trim()
-
-                viewModel.setBiography(biography)
-
-                return@setOnKeyListener true
+        binding.bioET.addTextChangedListener(object : TextChangedListener<RegisterViewModel>(viewModel){
+            override fun onTextChanged(target: RegisterViewModel, s: Editable){
+                viewModel.setBiography(s.toString())
             }
-            false
-        }
+        })
 
         return binding.root
     }

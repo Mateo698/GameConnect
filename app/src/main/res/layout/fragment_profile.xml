@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#060027"
+    tools:context=".Profile" >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/userImageView"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/backgrounds/scenic" />
+
+        <Button
+            android:id="@+id/previewCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="#1D1B20"
+            android:text="Preview card"
+            android:textColor="#E0EAF4"
+            app:cornerRadius="7dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/usernameTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginBottom="8dp"
+            android:text="Username"
+            android:textColor="#FFFFFF"
+            android:textSize="24dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/userImageView"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/editProfileBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/outline_edit_24"
+            app:layout_constraintBottom_toBottomOf="@+id/usernameTV"
+            app:layout_constraintEnd_toEndOf="@+id/previewCard" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userImageView">
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="PC" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/aboutMe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="About me"
+            android:textColor="#A4E0EAF4"
+            android:textSize="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+        <TextView
+            android:id="@+id/userDescriptionTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:text="Hi I’m Drunk_Calunca &quot;The Frag king&quot;. I Dominate shooters with pinpoint accuracy. Cunning, reflexes, and teamwork are my weapons.  No rival can match my talent. 😎"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/aboutMe"
+            app:layout_constraintTop_toBottomOf="@+id/aboutMe" />
+
+        <TextView
+            android:id="@+id/schedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Schedule"
+            android:textColor="#A4E0EAF4"
+            app:layout_constraintStart_toStartOf="@+id/userDescriptionTV"
+            app:layout_constraintTop_toBottomOf="@+id/userDescriptionTV" />
+
+        <TextView
+            android:id="@+id/scheduleTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="7:00 p.m. - 12:00 a.m."
+            app:layout_constraintStart_toStartOf="@+id/schedule"
+            app:layout_constraintTop_toBottomOf="@+id/schedule" />
+
+        <TextView
+            android:id="@+id/lookingFor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Looking for..."
+            android:textColor="#A4E0EAF4"
+            app:layout_constraintStart_toStartOf="@+id/scheduleTV"
+            app:layout_constraintTop_toBottomOf="@+id/scheduleTV" />
+
+        <TextView
+            android:id="@+id/lookingForTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:text="People to play casual on week and competitive during weekends."
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/lookingFor"
+            app:layout_constraintTop_toBottomOf="@+id/lookingFor" />
+
+        <TextView
+            android:id="@+id/gamesSection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Games"
+            app:layout_constraintStart_toStartOf="@+id/lookingForTV"
+            app:layout_constraintTop_toBottomOf="@+id/lookingForTV" />
+
+        <Button
+            android:id="@+id/logoutBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Log out"
+            app:cornerRadius="8dp"
+            app:layout_constraintStart_toStartOf="@+id/usernameTV"
+            app:layout_constraintTop_toTopOf="@+id/previewCard" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
