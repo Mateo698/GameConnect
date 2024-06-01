@@ -34,7 +34,7 @@ val viewModel: LoginViewModel by viewModels()
             }
         }
 
-        binding.loginBtn.setOnClickListener {
+        binding.loginButton.setOnClickListener {
             viewModel.login(
                 binding.emailET.text.toString(),
                 binding.passwordET.text.toString(),

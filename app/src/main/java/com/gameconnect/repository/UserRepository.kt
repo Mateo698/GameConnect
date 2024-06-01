@@ -1,8 +1,10 @@
 package com.gameconnect.repository
 
 import android.net.Uri
+import android.util.Log
 import com.gameconnect.domain.model.User
 import com.gameconnect.domain.model.UserCard
+import com.gameconnect.model.Chat
 import com.gameconnect.services.FileServices
 import com.gameconnect.services.UserServices
 import com.google.firebase.Firebase
@@ -14,6 +16,8 @@ interface UserRepository {
     suspend fun updateProfileImage(uri: Uri, filename: String)
     suspend fun observeAllUsers() : List<UserCard>
     suspend fun loadSpecificUser(id: String) : User?
+    suspend fun observeUserChats(userId: String): List<Chat>
+    suspend fun getUsers(toList: List<String>): List<User>
 }
 
 class UserRepositoryImpl(
@@ -47,4 +51,11 @@ class UserRepositoryImpl(
         return user
     }
 
+    override suspend fun observeUserChats(userId: String): List<Chat> {
+        return userServices.observeUserChats(userId)
+    }
+
+    override suspend fun getUsers(toList: List<String>): List<User> {
+        return userServices.getUsers(toList)
+    }
 }
