@@ -12,7 +12,8 @@ interface UserRepository {
 
     suspend fun loadUser() : User?
     suspend fun updateProfileImage(uri: Uri, filename: String)
-    suspend fun observeAllUsers() : List<UserCard>
+    fun observeAllUsers(onUsersChanged : (List<UserCard>) -> Unit)
+    suspend fun createMatch(matchId: UserCard)
 }
 
 class UserRepositoryImpl(
@@ -32,9 +33,12 @@ class UserRepositoryImpl(
         userServices.updateProfileImage(filename)
     }
 
-    override suspend fun observeAllUsers() : List<UserCard> {
-        val users = userServices.observeAllUsers()
-        return users.filter { it.id != Firebase.auth.uid }
+    override fun observeAllUsers(onUsersChanged : (List<UserCard>) -> Unit) {
+        userServices.observeAllUsers(onUsersChanged)
+    }
+
+    override suspend fun createMatch(match: UserCard) {
+        userServices.createMatch(match)
     }
 
 }

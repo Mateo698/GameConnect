@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gameconnect.databinding.FragmentConnectBinding
 import com.gameconnect.databinding.FragmentProfileBinding
+import com.gameconnect.domain.model.User
 import com.gameconnect.domain.model.UserCard
 import com.gameconnect.services.FileServices
 import com.gameconnect.viewmodel.ProfileViewModel
@@ -33,6 +34,8 @@ class Connect : Fragment() {
 
     private val usersViewModel : UsersViewModel by viewModels()
 
+    private lateinit var adapter: UserAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,7 +48,20 @@ class Connect : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val fileServices = FileServices()
-        val adapter = UserAdapter(fileServices)
+        adapter = UserAdapter(fileServices,
+            onConnectClicked = { userCard ->
+                usersViewModel.createMatch(userCard)
+                val updatedList = adapter.currentList.toMutableList()
+                updatedList.remove(userCard)
+                adapter.submitList(updatedList)
+            },
+            onDiscardClicked = { userCard ->
+                val updatedList = adapter.currentList.toMutableList()
+                updatedList.remove(userCard)
+                adapter.submitList(updatedList)
+            }
+        )
+
         binding.cardsList.layoutManager = LinearLayoutManager(context)
         binding.cardsList.adapter = adapter
 

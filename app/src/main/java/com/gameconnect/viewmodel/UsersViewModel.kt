@@ -20,9 +20,14 @@ class UsersViewModel (
     }
 
     private fun fetchAllUsers() {
-        viewModelScope.launch {
-            val users = userRepository.observeAllUsers()
+        userRepository.observeAllUsers { users ->
             _userCards.postValue(users)
+        }
+    }
+
+    fun createMatch(match: UserCard){
+        viewModelScope.launch {
+            userRepository.createMatch(match)
         }
     }
 

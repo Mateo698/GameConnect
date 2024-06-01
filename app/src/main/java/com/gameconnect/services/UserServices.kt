@@ -21,18 +21,32 @@ class UserServices   {
         return output
     }
 
-    suspend fun observeAllUsers() : List<UserCard> {
-        val users = mutableListOf<UserCard>()
-        try {
-            val result = Firebase.firestore.collection("users").get().await()
-            for (document in result) {
+    fun observeAllUsers(onUsersChanged: (List<UserCard>) -> Unit) {
+        val currentUserId = Firebase.auth.uid!!
+
+        Firebase.firestore.collection("users").get().addOnSuccessListener { snapshot ->
+            val users = mutableListOf<UserCard>()
+            for (document in snapshot.documents) {
                 val userCard = document.toObject(UserCard::class.java)
-                users.add(userCard)
+                if (userCard != null && userCard.id != currentUserId) {
+                    users.add(userCard)
+                }
             }
-        } catch (exception: Exception) {
-            Log.w(">>>", "Error getting documents ", exception)
+
+            Firebase.firestore.collection("users").document(currentUserId).collection("matches").get()
+                .addOnSuccessListener { matchSnapshot ->
+                    val matchedUserIds = matchSnapshot.documents.map { it.id }
+                    val filteredUsers = users.filterNot { it.id in matchedUserIds }
+                    onUsersChanged(filteredUsers)
+                }
+                .addOnFailureListener { matchError ->
+                    Log.w(">>>", "Failed to fetch matches.", matchError)
+                }
         }
-        return users
+            .addOnFailureListener { e ->
+                Log.w(">>>", "Failed to fetch users.", e)
+            }
+
     }
 
 
@@ -42,5 +56,27 @@ class UserServices   {
         ).update("profilePic", filename).await()
     }
 
+    suspend fun createMatch(match: UserCard){
+        val currentUser = Firebase.auth.uid
+        if (currentUser != null) {
+            Firebase.firestore.collection("users").document(currentUser)
+                .collection("matches").document(match.id)
+                .set(mapOf(match.username to match.id))
+                .await()
+        }
+    }
 
+    suspend fun getGameTitles(gameIds: List<String>): List<String> {
+        val titles = mutableListOf<String>()
+        for (id in gameIds) {
+            val document = Firebase.firestore.collection("games").document(id).get().await()
+            val title = document.getString("title")
+            if (title != null) {
+                titles.add(title)
+            }
+        }
+        return titles
+    }
 }
+
+
