@@ -53,7 +53,10 @@ class GamesFragment: Fragment() {
         fun onResult(result: ActivityResult){
             if(result.resultCode == Activity.RESULT_OK){
                 val data = result.data
-                val game = Game("1",data?.getStringExtra("game") ?: "", data?.getStringExtra("thumbnail") ?: "", "",data?.getStringExtra("genre") ?: "")
+                val game = Game(data?.getStringExtra("id")?:"0",
+                    data?.getStringExtra("game") ?: "",
+                    data?.getStringExtra("thumbnail") ?: "",
+                    "",data?.getStringExtra("genre") ?: "")
                 viewModel.addGame(game)
             }
         }

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#060027"
+    tools:context=".ViewProfileActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="189dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/usernameLabel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/text_gradient"
+                android:gravity="bottom"
+                android:paddingLeft="10dp"
+                android:paddingBottom="10dp"
+                android:text="TextView"
+                android:textAlignment="textStart"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/platforms"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="109dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:paddingLeft="10dp"
+            android:text="About me"
+            android:textColor="#73758D"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.07"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/platformLabel" />
+
+        <TextView
+            android:id="@+id/aboutmeLabel"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="6dp"
+            android:paddingLeft="10dp"
+            android:text="TextView"
+            android:textColor="#E0EAF4"
+            app:layout_constraintStart_toStartOf="@+id/textView15"
+            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="99dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingLeft="10dp"
+            android:text="Schedule"
+            android:textColor="#6E7087"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.07"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/aboutmeLabel" />
+
+        <TextView
+            android:id="@+id/scheduleLabel"
+            android:layout_width="256dp"
+            android:layout_height="27dp"
+            android:layout_marginTop="8dp"
+            android:paddingLeft="10dp"
+            android:text="TextView"
+            android:textColor="#FFFFFF"
+            app:layout_constraintStart_toStartOf="@+id/textView19"
+            app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="109dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:paddingLeft="10dp"
+            android:text="Games"
+            android:textColor="#53526D"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/lookingForLabel"
+            app:layout_constraintTop_toBottomOf="@+id/lookingForLabel" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/games"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp" />
+
+        <TextView
+            android:id="@+id/textView23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:paddingLeft="10dp"
+            android:text="Genres"
+            android:textColor="#51516D"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/textView22"
+            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
+
+    <LinearLayout
+        android:layout_width="409dp"
+        android:layout_height="72dp"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="773dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/genres"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp" />
+    </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

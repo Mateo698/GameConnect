@@ -35,6 +35,7 @@ class GameAdapter(
                 putExtra("game", games[position].title)
                 putExtra("genre", games[position].genre)
                 putExtra("thumbnail", games[position].thumbnail)
+                putExtra("id", games[position].id)
             }
 
             activity?.setResult(Activity.RESULT_OK, intent)

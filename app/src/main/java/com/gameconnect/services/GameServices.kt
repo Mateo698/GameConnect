@@ -25,4 +25,14 @@ class GameServices {
             .toObjects(Game::class.java)
         return games
     }
+
+    suspend fun getGamesByList(list: List<String>): List<Game> {
+        val db = Firebase.firestore
+        val games = db.collection("games")
+            .whereIn("id", list)
+            .get()
+            .await()
+            .toObjects(Game::class.java)
+        return games
+    }
 }

@@ -2,11 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-feature android:name="android.hardware.camera" android:required="false"/>
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -19,13 +21,17 @@
         android:theme="@style/Theme.GameConnect"
         tools:targetApi="31">
         <activity
+            android:name=".ViewProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".SelectGameActivity"
             android:exported="false" />
         <activity
             android:name=".registerFragments.GenreFragment"
             android:exported="false" />
-        <activity android:name=".Profile"
-            android:exported="false"/>
+        <activity
+            android:name=".Profile"
+            android:exported="false" />
         <activity
             android:name=".RegisterActivity"
             android:exported="false" />
@@ -40,8 +46,7 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
     </application>
 
 </manifest>

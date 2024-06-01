@@ -13,6 +13,7 @@ interface UserRepository {
     suspend fun loadUser() : User?
     suspend fun updateProfileImage(uri: Uri, filename: String)
     suspend fun observeAllUsers() : List<UserCard>
+    suspend fun loadSpecificUser(id: String) : User?
 }
 
 class UserRepositoryImpl(
@@ -35,6 +36,15 @@ class UserRepositoryImpl(
     override suspend fun observeAllUsers() : List<UserCard> {
         val users = userServices.observeAllUsers()
         return users.filter { it.id != Firebase.auth.uid }
+    }
+
+    override suspend fun loadSpecificUser(id: String) : User? {
+        val document = userServices.loadUser(id)
+        val user = document.toObject(User::class.java)
+        user?.profilePic?.let {
+            user.profilePic = fileServices.downloadImage(it).toString()
+        }
+        return user
     }
 
 }
