@@ -18,6 +18,7 @@ interface UserRepository {
     suspend fun loadSpecificUser(id: String) : User?
     suspend fun observeUserChats(userId: String): List<Chat>
     suspend fun getUsers(toList: List<String>): List<User>
+    suspend fun loadChatInfo(id: String): Chat
 }
 
 class UserRepositoryImpl(
@@ -57,5 +58,9 @@ class UserRepositoryImpl(
 
     override suspend fun getUsers(toList: List<String>): List<User> {
         return userServices.getUsers(toList)
+    }
+
+    override suspend fun loadChatInfo(id: String): Chat {
+        return userServices.loadChatInfo(id)
     }
 }

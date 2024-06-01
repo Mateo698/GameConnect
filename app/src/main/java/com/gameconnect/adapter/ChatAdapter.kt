@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
+import com.gameconnect.ChatActivity
 import com.gameconnect.R
 import com.gameconnect.model.Chat
 import com.gameconnect.model.ChatItem
@@ -36,11 +37,10 @@ class ChatAdapter: Adapter<ChatViewHolder>() {
         holder.lastMessage.text = chats[position].lastMessage.content
         Picasso.get().load(chats[position].userImg).into(holder.userImg)
         holder.chatBtn.setOnClickListener {
-            /**
-            Intent(holder.itemView.context, Chat::class.java).apply {
+            Intent(holder.itemView.context, ChatActivity::class.java).apply {
                 putExtra("chatId", chats[position].chatId)
                 holder.itemView.context.startActivity(this)
-            }**/
+            }
             Log.e("ChatAdapter", "Chat button clicked with id ${chats[position].chatId}")
         }
 

@@ -83,5 +83,10 @@ class UserServices   {
 
     }
 
+    suspend fun loadChatInfo(id: String): Chat {
+        val chat = Firebase.firestore.collection("matches").document(id).get().await().toObject<Chat>()
+        return chat!!
+    }
+
 
 }
