@@ -56,13 +56,17 @@ class UserServices   {
         ).update("profilePic", filename).await()
     }
 
-    suspend fun createMatch(match: UserCard){
+    suspend fun createMatch(match: UserCard) {
         val currentUser = Firebase.auth.uid
         if (currentUser != null) {
-            Firebase.firestore.collection("users").document(currentUser)
-                .collection("matches").document(match.id)
-                .set(mapOf(match.username to match.id))
-                .await()
+            val matchData = mapOf(
+                "dateMatched" to com.google.firebase.Timestamp.now(),
+                "userOne" to currentUser,
+                "userTwo" to match.id
+            )
+
+            val newMatchRef = Firebase.firestore.collection("matches").add(matchData).await()
+            newMatchRef.update("id", newMatchRef.id).await()
         }
     }
 
