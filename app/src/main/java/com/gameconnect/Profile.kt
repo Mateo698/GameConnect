@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.gameconnect.databinding.FragmentProfileBinding
+import com.gameconnect.services.UserServices
 import com.gameconnect.viewmodel.ProfileViewModel
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
@@ -79,6 +80,12 @@ class Profile : Fragment() {
             it.profilePic?.let {
                 Glide.with(this@Profile).load(it).into(binding.userImageView)
             }
+
+            binding.platformsTV.text = it.platforms.joinToString(", ")
+            binding.userDescriptionTV.text = it.biography
+            binding.usernameTV.text = it.username
+            binding.scheduleTV.text = it.time
+
         }
 
 
