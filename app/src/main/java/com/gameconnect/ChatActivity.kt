@@ -7,9 +7,16 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.gameconnect.adapter.ChatAdapter
+import com.gameconnect.adapter.ChatMessagesAdapter
 import com.gameconnect.databinding.ActivityChatBinding
+import com.gameconnect.model.Message
 import com.gameconnect.viewmodel.ChatViewModel
 import com.gameconnect.viewmodel.RegisterViewModel
+import com.google.firebase.Firebase
+import com.google.firebase.Timestamp
+import com.google.firebase.auth.auth
 
 class ChatActivity : AppCompatActivity() {
 
@@ -18,6 +25,8 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private val viewModel: ChatViewModel by viewModels()
+
+    val chatAdapter = ChatMessagesAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +49,31 @@ class ChatActivity : AppCompatActivity() {
             intent.putExtra("id", viewModel.otherUser.value?.id)
 
             startActivity(intent)
+        }
+
+        binding.sendButton.setOnClickListener {
+            val message = Message(
+                "",
+                Firebase.auth.uid!!,
+                Timestamp(System.currentTimeMillis() / 1000, 0),
+                binding.messageTextEdit.text.toString()
+            )
+            viewModel.sendMessage(message)
+            binding.messageTextEdit.text.clear()
+        }
+
+        binding.messagesRV.setHasFixedSize(true)
+        val manager = LinearLayoutManager(this)
+        manager.stackFromEnd = true
+        binding.messagesRV.layoutManager = manager
+        binding.messagesRV.adapter = chatAdapter
+
+        viewModel.chat.observe(this){
+            chatAdapter.messages = it?.messages ?: arrayListOf()
+            chatAdapter.notifyDataSetChanged()
+            if(chatAdapter.itemCount>0) {
+                binding.messagesRV.smoothScrollToPosition(chatAdapter.itemCount - 1)
+            }
         }
 
 

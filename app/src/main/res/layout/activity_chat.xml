@@ -72,13 +72,14 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/messagesRV"
-        android:layout_width="0dp"
-        android:layout_height="611dp"
+        android:layout_width="409dp"
+        android:layout_height="0dp"
         android:layout_marginTop="1dp"
         android:layout_marginBottom="1dp"
-        android:padding="10dp"
+        android:foregroundGravity="bottom"
         app:layout_constraintBottom_toTopOf="@+id/sendButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/backButton" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

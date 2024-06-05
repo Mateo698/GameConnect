@@ -77,4 +77,11 @@ class UsersViewModel (
         }
         _chatItems.postValue(chatItems)
     }
+
+
+    fun createMatch(match: UserCard){
+        viewModelScope.launch {
+            userRepository.createMatch(match)
+        }
+    }
 }

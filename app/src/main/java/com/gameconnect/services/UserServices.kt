@@ -5,10 +5,12 @@ import com.gameconnect.domain.model.User
 import com.gameconnect.domain.model.UserCard
 import com.gameconnect.model.Chat
 import com.gameconnect.model.Game
+import com.gameconnect.model.Message
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.Filter
+import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
 import kotlinx.coroutines.tasks.await
@@ -100,6 +102,57 @@ class UserServices   {
     suspend fun loadChatInfo(id: String): Chat {
         val chat = Firebase.firestore.collection("matches").document(id).get().await().toObject<Chat>()
         return chat!!
+    }
+
+    suspend fun createMatch(match: UserCard) {
+        val currentUser = Firebase.auth.uid
+        if (currentUser != null) {
+            val matchData = mapOf(
+                "dateMatched" to com.google.firebase.Timestamp.now(),
+                "userOne" to currentUser,
+                "userTwo" to match.id
+            )
+
+            val newMatchRef = Firebase.firestore.collection("matches").add(matchData).await()
+            newMatchRef.update("id", newMatchRef.id).await()
+        }
+    }
+
+    suspend fun getGameTitles(gameIds: List<String>): List<String> {
+        val titles = mutableListOf<String>()
+        for (id in gameIds) {
+            val document = Firebase.firestore.collection("games").document(id).get().await()
+            val title = document.getString("title")
+            if (title != null) {
+                titles.add(title)
+            }
+        }
+        return titles
+    }
+
+    suspend fun sendMessage(message: Message, chatId: String) {
+        val message = Firebase.firestore.collection("matches").document(chatId).collection("messages").add(message).await();
+        message.update("id", message.id).await()
+    }
+
+    suspend fun observeChatMessages(
+        function: (QueryDocumentSnapshot) -> Unit,
+        chatId: String
+    ) {
+        Firebase.firestore.collection("matches").document(chatId).collection("messages")
+            .orderBy("date")
+            .addSnapshotListener { snapshot, error ->
+                snapshot?.documentChanges?.forEach { change ->
+                    when (change.type) {
+                        com.google.firebase.firestore.DocumentChange.Type.ADDED -> {
+                            function(change.document)
+                        }
+                        else -> {
+                        }
+                    }
+                }
+            }
+
     }
 
 

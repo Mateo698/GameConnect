@@ -5,6 +5,7 @@ import android.util.Log
 import com.gameconnect.domain.model.User
 import com.gameconnect.domain.model.UserCard
 import com.gameconnect.model.Chat
+import com.gameconnect.model.Message
 import com.gameconnect.services.FileServices
 import com.gameconnect.services.UserServices
 import com.google.firebase.Firebase
@@ -20,6 +21,8 @@ interface UserRepository {
     suspend fun loadChatInfo(id: String): Chat
     suspend fun getUsers(toList: List<String>): List<User>
     suspend fun createMatch(matchId: UserCard)
+    suspend fun sendMessage(message: Message, chatId: String)
+    suspend fun observeChatMessages(id: String, function: (Message) -> Unit)
 }
 
 class UserRepositoryImpl(
@@ -67,4 +70,14 @@ class UserRepositoryImpl(
         userServices.createMatch(match)
     }
 
+    override suspend fun sendMessage(message: Message, chatId: String) {
+        userServices.sendMessage(message, chatId)
+    }
+
+    override suspend fun observeChatMessages(id: String, function: (Message) -> Unit) {
+        userServices.observeChatMessages({
+            val message = it.toObject(Message::class.java)
+            function(message)
+        }, id)
+    }
 }
