@@ -14,11 +14,12 @@ interface UserRepository {
 
     suspend fun loadUser() : User?
     suspend fun updateProfileImage(uri: Uri, filename: String)
-    suspend fun observeAllUsers() : List<UserCard>
+    fun observeAllUsers(onUsersChanged : (List<UserCard>) -> Unit)
     suspend fun loadSpecificUser(id: String) : User?
     suspend fun observeUserChats(userId: String): List<Chat>
-    suspend fun getUsers(toList: List<String>): List<User>
     suspend fun loadChatInfo(id: String): Chat
+    suspend fun getUsers(toList: List<String>): List<User>
+    suspend fun createMatch(matchId: UserCard)
 }
 
 class UserRepositoryImpl(
@@ -38,9 +39,8 @@ class UserRepositoryImpl(
         userServices.updateProfileImage(filename)
     }
 
-    override suspend fun observeAllUsers() : List<UserCard> {
-        val users = userServices.observeAllUsers()
-        return users.filter { it.id != Firebase.auth.uid }
+    override fun observeAllUsers(onUsersChanged : (List<UserCard>) -> Unit) {
+        userServices.observeAllUsers(onUsersChanged)
     }
 
     override suspend fun loadSpecificUser(id: String) : User? {
@@ -63,4 +63,8 @@ class UserRepositoryImpl(
     override suspend fun loadChatInfo(id: String): Chat {
         return userServices.loadChatInfo(id)
     }
+    override suspend fun createMatch(match: UserCard) {
+        userServices.createMatch(match)
+    }
+
 }

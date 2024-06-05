@@ -24,18 +24,32 @@ class UserServices   {
         return output
     }
 
-    suspend fun observeAllUsers() : List<UserCard> {
-        val users = mutableListOf<UserCard>()
-        try {
-            val result = Firebase.firestore.collection("users").get().await()
-            for (document in result) {
+    fun observeAllUsers(onUsersChanged: (List<UserCard>) -> Unit) {
+        val currentUserId = Firebase.auth.uid!!
+
+        Firebase.firestore.collection("users").get().addOnSuccessListener { snapshot ->
+            val users = mutableListOf<UserCard>()
+            for (document in snapshot.documents) {
                 val userCard = document.toObject(UserCard::class.java)
-                users.add(userCard)
+                if (userCard != null && userCard.id != currentUserId) {
+                    users.add(userCard)
+                }
             }
-        } catch (exception: Exception) {
-            Log.w(">>>", "Error getting documents ", exception)
+
+            Firebase.firestore.collection("users").document(currentUserId).collection("matches").get()
+                .addOnSuccessListener { matchSnapshot ->
+                    val matchedUserIds = matchSnapshot.documents.map { it.id }
+                    val filteredUsers = users.filterNot { it.id in matchedUserIds }
+                    onUsersChanged(filteredUsers)
+                }
+                .addOnFailureListener { matchError ->
+                    Log.w(">>>", "Failed to fetch matches.", matchError)
+                }
         }
-        return users
+            .addOnFailureListener { e ->
+                Log.w(">>>", "Failed to fetch users.", e)
+            }
+
     }
 
 
@@ -90,3 +104,5 @@ class UserServices   {
 
 
 }
+
+
