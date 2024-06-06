@@ -28,32 +28,41 @@ class UserServices   {
 
     fun observeAllUsers(onUsersChanged: (List<UserCard>) -> Unit) {
         val currentUserId = Firebase.auth.uid!!
+        val db = Firebase.firestore
 
-        Firebase.firestore.collection("users").get().addOnSuccessListener { snapshot ->
-            val users = mutableListOf<UserCard>()
-            for (document in snapshot.documents) {
-                val userCard = document.toObject(UserCard::class.java)
-                if (userCard != null && userCard.id != currentUserId) {
-                    users.add(userCard)
-                }
-            }
-
-            Firebase.firestore.collection("users").document(currentUserId).collection("matches").get()
-                .addOnSuccessListener { matchSnapshot ->
-                    val matchedUserIds = matchSnapshot.documents.map { it.id }
-                    val filteredUsers = users.filterNot { it.id in matchedUserIds }
-                    onUsersChanged(filteredUsers)
-                }
-                .addOnFailureListener { matchError ->
-                    Log.w(">>>", "Failed to fetch matches.", matchError)
-                }
-        }
-            .addOnFailureListener { e ->
+        db.collection("users").addSnapshotListener { snapshot, e ->
+            if (e != null) {
                 Log.w(">>>", "Failed to fetch users.", e)
+                return@addSnapshotListener
             }
 
-    }
+            if (snapshot != null && !snapshot.isEmpty) {
+                val users = mutableListOf<UserCard>()
+                for (document in snapshot.documents) {
+                    val userCard = document.toObject(UserCard::class.java)
+                    if (userCard != null && userCard.id != currentUserId) {
+                        users.add(userCard)
+                    }
+                }
 
+                db.collection("users").document(currentUserId).addSnapshotListener { matchSnapshot, matchError ->
+                    if (matchError != null) {
+                        Log.w(">>>", "Failed to fetch matches.", matchError)
+                        return@addSnapshotListener
+                    }
+
+                    if (matchSnapshot != null && matchSnapshot.exists()) {
+                        val matchedUserIds = (matchSnapshot["matches"] as? Map<String, String>)?.values ?: emptySet<String>()
+                        val filteredUsers = users.filterNot { it.id in matchedUserIds }
+                        Log.d("matchesFilter", "$matchedUserIds")
+                        onUsersChanged(filteredUsers)
+                    }
+                }
+            } else {
+                onUsersChanged(emptyList())
+            }
+            }
+    }
 
     suspend fun updateProfileImage(filename: String) {
         Firebase.firestore.collection("users").document(
@@ -114,7 +123,24 @@ class UserServices   {
             )
 
             val newMatchRef = Firebase.firestore.collection("matches").add(matchData).await()
-            newMatchRef.update("id", newMatchRef.id).await()
+            val matchId = newMatchRef.id
+            newMatchRef.update("id", matchId).await()
+
+            val currentUserRef = Firebase.firestore.collection("users").document(currentUser)
+            val matchUserRef = Firebase.firestore.collection("users").document(match.id)
+
+            val currentUserSnapshot = currentUserRef.get().await()
+            val currentMatches = currentUserSnapshot.get("matches") as? MutableMap<String, String> ?: mutableMapOf()
+
+            val matchSnapshot = matchUserRef.get().await()
+            val matchMatches = matchSnapshot.get("matches") as? MutableMap<String, String> ?: mutableMapOf()
+
+            currentMatches["id"] = match.id
+            matchMatches["id"] = currentUser
+
+            currentUserRef.update("matches", currentMatches).await()
+            matchUserRef.update("matches", matchMatches).await()
+
         }
     }
 

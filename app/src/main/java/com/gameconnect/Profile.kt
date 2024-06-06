@@ -9,13 +9,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.gameconnect.adapter.GameCardAdapter
+import com.gameconnect.adapter.PlatformAdapter
 import com.gameconnect.databinding.FragmentProfileBinding
 import com.gameconnect.services.UserServices
 import com.gameconnect.viewmodel.ProfileViewModel
+import com.gameconnect.viewmodel.ViewProfileViewModel
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 
@@ -25,6 +30,11 @@ class Profile : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: ProfileViewModel by viewModels()
+
+    private val viewProfileModel : ViewProfileViewModel by viewModels()
+
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,20 +86,35 @@ class Profile : Fragment() {
             galleryLauncher.launch(intent)
         }
 
-        viewModel.userState.observe(viewLifecycleOwner){
+        val adapter = GameCardAdapter()
+        val platformAdapter = PlatformAdapter()
+
+        binding.gamesContainer.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.gamesContainer.adapter = adapter
+
+        binding.platformsContainer.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.platformsContainer.adapter = platformAdapter
+
+
+
+        viewModel.userState.observe(viewLifecycleOwner) {
             it.profilePic?.let {
                 Glide.with(this@Profile).load(it).into(binding.userImageView)
             }
 
-            binding.platformsTV.text = it.platforms.joinToString(", ")
+            platformAdapter.setPlatforms(it.platforms)
             binding.userDescriptionTV.text = it.biography
             binding.usernameTV.text = it.username
             binding.scheduleTV.text = it.time
 
+            it.games.let { gameIds ->
+                viewModel.loadGames(gameIds).observe(viewLifecycleOwner) { games ->
+                    adapter.setGames(games)
+                }
+
+            }
+
         }
-
-
-
     }
 
     override fun onDestroyView() {

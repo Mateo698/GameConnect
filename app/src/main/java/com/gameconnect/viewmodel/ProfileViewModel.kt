@@ -6,10 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gameconnect.domain.model.User
+import com.gameconnect.model.Game
 import com.gameconnect.repository.AuthRepository
 import com.gameconnect.repository.AuthRepositoryImpl
 import com.gameconnect.repository.UserRepository
 import com.gameconnect.repository.UserRepositoryImpl
+import com.gameconnect.services.GameServices
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -25,6 +27,9 @@ class ProfileViewModel (
     //State
     private val _userState = MutableLiveData<User>()
     val userState:LiveData<User> get() = _userState
+    private val _games = MutableLiveData<List<Game>>()
+    val games: LiveData<List<Game>> get() = _games
+    val gameService: GameServices = GameServices()
 
     fun loadUser() {
         viewModelScope.launch(Dispatchers.IO){
@@ -35,6 +40,14 @@ class ProfileViewModel (
                 }
             }
         }
+    }
+
+    fun loadGames(gameIds: List<String>): LiveData<List<Game>> {
+        viewModelScope.launch {
+            val games = gameService.getGamesByList(gameIds)
+            _games.value = games
+        }
+        return games
     }
 
     fun updateProfileImage(uri: Uri){

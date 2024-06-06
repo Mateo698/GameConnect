@@ -42,7 +42,7 @@ class UserRepositoryImpl(
         userServices.updateProfileImage(filename)
     }
 
-    override fun observeAllUsers(onUsersChanged : (List<UserCard>) -> Unit) {
+    override fun observeAllUsers(onUsersChanged: (List<UserCard>) -> Unit) {
         userServices.observeAllUsers(onUsersChanged)
     }
 

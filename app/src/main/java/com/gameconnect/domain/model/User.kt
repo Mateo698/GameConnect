@@ -1,5 +1,7 @@
 package com.gameconnect.domain.model
 
+import com.gameconnect.model.Game
+
 data class User(
     var id: String = "",
     var username: String = "",

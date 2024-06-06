@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#060027"
-    tools:context=".Profile" >
+    tools:context=".Profile">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -73,28 +73,19 @@
             android:layout_marginTop="16dp"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userImageView">
-
-            <TextView
-                android:id="@+id/platformsTV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="PC"
-                android:textColor="#A4E0EAF4" />
-        </LinearLayout>
+            app:layout_constraintTop_toBottomOf="@+id/userImageView" />
 
         <TextView
             android:id="@+id/aboutMe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:text="About me"
             android:textColor="#A4E0EAF4"
             android:textSize="14dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/platformsContainer" />
 
         <TextView
             android:id="@+id/userDescriptionTV"
@@ -146,12 +137,25 @@
             app:layout_constraintStart_toStartOf="@+id/usernameTV"
             app:layout_constraintTop_toTopOf="@+id/previewCard" />
 
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/gamesContainer"
             android:layout_width="409dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:paddingRight="16dp"
             app:layout_constraintStart_toStartOf="@+id/gamesSection"
-            app:layout_constraintTop_toBottomOf="@+id/gamesSection"></LinearLayout>
+            app:layout_constraintTop_toBottomOf="@+id/gamesSection" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/platformsContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:paddingVertical="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/aboutMe"
+            app:layout_constraintStart_toStartOf="@+id/aboutMe"
+            app:layout_constraintTop_toBottomOf="@+id/userImageView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
