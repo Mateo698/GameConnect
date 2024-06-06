@@ -42,10 +42,10 @@ class SelectGameActivity : AppCompatActivity() {
             }else{
                 viewModel.getGamesByTitle(title)
             }
-            //viewModel.getAllGames()
+
         }
 
-
+        viewModel.getAllGames()
 
 
         binding.recyclerView.adapter = adapter

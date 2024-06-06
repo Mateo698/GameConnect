@@ -31,19 +31,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/previewCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:backgroundTint="#1D1B20"
-            android:text="Preview card"
-            android:textColor="#E0EAF4"
-            app:cornerRadius="7dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/usernameTV"
             android:layout_width="wrap_content"
@@ -63,7 +50,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/outline_edit_24"
             app:layout_constraintBottom_toBottomOf="@+id/usernameTV"
-            app:layout_constraintEnd_toEndOf="@+id/previewCard" />
+            tools:layout_editor_absoluteX="371dp" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -135,7 +122,7 @@
             android:text="Log out"
             app:cornerRadius="8dp"
             app:layout_constraintStart_toStartOf="@+id/usernameTV"
-            app:layout_constraintTop_toTopOf="@+id/previewCard" />
+            tools:layout_editor_absoluteY="16dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/gamesContainer"
